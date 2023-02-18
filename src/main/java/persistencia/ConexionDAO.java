@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class ConexionDAO implements IConexionDAO{
     final String CADENA_CONEXION = "jdbc:mysql://localhost:3306/Banco_Proyecto";
     final String USUARIO = "root";
-    final String CONTRASENA = "1234";
+    final String CONTRASENA = "123456";
 
     @Override
     public Connection crearConexion() throws SQLException {

@@ -12,15 +12,22 @@ package Entidades;
 public class Cuenta {
     private int id_Cuenta;
     private String fecha_Apertura;
+    private int numero;
     private double saldo;
     private int id_Cliente;
 
     public Cuenta() {
     }
 
-    public Cuenta(int id_Cuenta, String fecha_Apertura, double saldo, int id_Cliente) {
+    public Cuenta(int id_Cuenta, int numero ,String fecha_Apertura, double saldo, int id_Cliente) {
         this.id_Cuenta = id_Cuenta;
+        this.numero=numero;
         this.fecha_Apertura = fecha_Apertura;
+        this.saldo = saldo;
+        this.id_Cliente = id_Cliente;
+    }
+
+    public Cuenta(double saldo, int id_Cliente) {
         this.saldo = saldo;
         this.id_Cliente = id_Cliente;
     }
@@ -55,6 +62,11 @@ public class Cuenta {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(numero);
     }
     
     

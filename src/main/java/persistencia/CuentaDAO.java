@@ -5,10 +5,14 @@
  */
 package persistencia;
 
+import Entidades.Cliente;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import Entidades.Cuenta;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import persistencia.ConexionDAO;
 /**
  *
@@ -94,4 +98,43 @@ public class CuentaDAO implements ICuentaDAO{
     public Cuenta cancelarCuenta(Cuenta cuenta) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<Cuenta> listaCuentas(Cliente cliente) {
+        List<Cuenta> listaCuenta = null;
+        try {
+            Connection conexion = this.conexionBD.crearConexion();
+
+            Statement comandoSQL = conexion.createStatement();
+
+            String codigoSQL = String.format("SELECT * FROM Cuenta where id_Cliente ="+ cliente.getId_cliente());
+
+            ResultSet resultado = comandoSQL.executeQuery(codigoSQL);
+
+            while (resultado.next()) {
+                if(listaCuenta == null){
+                     listaCuenta = new ArrayList<>();
+                }
+                
+                int id_Cuenta = resultado.getInt("id_Cuenta"); 
+                int numero = resultado.getInt("numero");
+                String fecha_Apertura = resultado.getString("fecha_Apertura");
+                double saldo = resultado.getDouble("saldo");
+                int id_Cliente = resultado.getInt("id_Cliente");
+                
+                Cuenta cuenta = new Cuenta(id_Cuenta,numero,fecha_Apertura,saldo,id_Cliente);
+//                Cliente cliente = new Cliente(id_cliente, nombre, apellido_paterno, apellido_materno, direccion);
+                listaCuenta.add(cuenta);
+
+            }
+
+            conexion.close();
+            return listaCuenta;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return listaCuenta;
+
+        }
+}
 }

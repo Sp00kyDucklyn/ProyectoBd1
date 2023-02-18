@@ -15,7 +15,8 @@ import persistencia.IClienteDAO;
  */
 public class frmLogin extends javax.swing.JFrame {
 
-   private IClienteDAO clienteDAO;
+   private final IClienteDAO clienteDAO;
+   private Cliente cliente;
 
     public frmLogin(IClienteDAO clienteDao) {
         this.clienteDAO = clienteDao;
@@ -32,6 +33,7 @@ public class frmLogin extends javax.swing.JFrame {
             return false;
             
         }
+        this.cliente = clienteDAO.Login(cliente);
         return true;
         
     }
@@ -187,9 +189,11 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        frmMenu menu = new frmMenu();
-        menu.setVisible(true);
+        if (this.Acceder()) {
+            this.setVisible(false);
+            frmMenu menu = new frmMenu(clienteDAO, cliente);
+            menu.setVisible(true);
+        }
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
     /**

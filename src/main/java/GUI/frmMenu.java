@@ -5,17 +5,51 @@
  */
 package GUI;
 
+import Entidades.Cliente;
+import Entidades.Cuenta;
+import java.util.Iterator;
+import java.util.List;
+import persistencia.ConexionDAO;
+import persistencia.CuentaDAO;
+import persistencia.IClienteDAO;
+import persistencia.IConexionDAO;
+import persistencia.ICuentaDAO;
+
 /**
  *
  * @author hoshi
  */
 public class frmMenu extends javax.swing.JFrame {
 
+    private final IClienteDAO clienteDAO;
+    private final ICuentaDAO cuentaDAO;
+    private final Cliente cliente;
     /**
      * Creates new form frmMenu
      */
-    public frmMenu() {
+    public frmMenu(IClienteDAO clienteDAO, Cliente cliente) {
+        this.clienteDAO = clienteDAO;
+        this.cliente = cliente;
+         IConexionDAO gg = new ConexionDAO();
+         
+        this.cuentaDAO = new CuentaDAO (gg);
+        
         initComponents();
+        combo();
+    }
+    
+    public void combo(){
+        cbCuenta.removeAllItems();
+        List<Cuenta> llenaCb = cuentaDAO.listaCuentas(cliente);
+        if(llenaCb==null){
+            
+        }else{
+            Iterator popopipi = llenaCb.iterator();
+            while(popopipi.hasNext()){
+                Cuenta cuenta = (Cuenta)popopipi.next();
+                this.cbCuenta.addItem(cuenta);
+            }
+        }
     }
 
     /**
@@ -28,6 +62,7 @@ public class frmMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        cbCuenta = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -38,6 +73,8 @@ public class frmMenu extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.add(cbCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 160, -1));
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Tempus Sans ITC", 1, 16)); // NOI18N
@@ -112,6 +149,7 @@ public class frmMenu extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Cuenta> cbCuenta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

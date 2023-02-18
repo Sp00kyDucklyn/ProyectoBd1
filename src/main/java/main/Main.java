@@ -2,6 +2,7 @@ package main;
 
 
 
+import Entidades.Cliente;
 import GUI.frmLogin;
 import java.sql.SQLException;
 import persistencia.ClienteDAO;

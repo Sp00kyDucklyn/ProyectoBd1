@@ -76,6 +76,7 @@ public class ClienteDAO implements IClienteDAO{
             //Creamos la consulta que vamos a ejecutar
             String codigoSQL= "Select * From Cliente WHERE nombre ='"+cliente.getNombre()+
                     "' and contraseña='"+cliente.getContraseña()+"'";
+            System.out.println(codigoSQL);
             //guardemos el resultado de la comnsulta, en este caso se va a guardar al activista
             ResultSet resultado = comandoSQL.executeQuery(codigoSQL);
             //comprobamos si hay un activista en el resultado y obtenemos sus datos
@@ -94,10 +95,10 @@ public class ClienteDAO implements IClienteDAO{
             //cerramos conexion
             conexion.close();
             //regresamos el cliente
-            return cliente;
+            return clienteE;
         } catch (SQLException ex) {
             System.err.println(ex.getMessage()); //imprimimos el mensaje de error
-            return cliente; //regresamos el activista, que en este caso seria un nulo
+            return clienteE; //regresamos el activista, que en este caso seria un nulo
         }
             
        
